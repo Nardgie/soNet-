@@ -84,8 +84,14 @@ const users = []
 const getRandomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
 // Gets a random full name
-const getRandomName = () =>
-  `${getRandomArrItem(names)} ${getRandomArrItem(names)}`;
+const getRandomName = (int) => {
+  let results = [];
+  for (let i = 0; i < int; i++) {
+    const name = getRandomArrItem(names);
+    results.push(name);
+  }
+    return results;
+    };
 
   
   // generate random thought to add to database
@@ -94,11 +100,12 @@ const getRandomName = () =>
     for (let i = 0; i < int; i++) {
       const thought = {
         thoughtText: getRandomArrItem(thoughts),
-        username: getRandomName(),
+        reactions: [...getRandomReaction(3)],
         createdAt: new Date(),
       };
       results.push(thought);
     }
+    return results
   };
 
 // generate random reaction to add to thought
@@ -112,17 +119,35 @@ const getRandomReaction = (int) => {
       };
       results.push(reaction);
     }
+    return results; 
   };
+
+  const getRandomEmail = (int) => {
+    let results = [];
+    for (let i = 0; i < int; i++) {
+      const email = emails[i]
+      results.push(email);
+    }
+    return results;
+
+  };    
+
+  const getRandomAge = () => {
+    const age = {
+      age: getRandomArrItem(ages),
+    };
+    return age;
+  };
+
 
 // generate random user to add to database
-const getRandomUser = () => {
-    const user = {
-      username: getRandomName(),
-      email: getRandomArrItem(emails),
-      age: getRandomArrItem(ages),
-      thoughts: getRandomThought(14),
-    };
-    return user;
-  };
+// const getRandomUser = () => {
+//     const user = {
+//       username: getRandomName(),
+//       email: getRandomArrItem(emails),
+//       age: getRandomArrItem(ages),
+//     };
+//     return user;
+//   };
 
-module.exports = { getRandomName, getRandomUser, getRandomThought, getRandomReaction };
+module.exports = { getRandomName, getRandomEmail, getRandomAge, getRandomThought, getRandomReaction };
